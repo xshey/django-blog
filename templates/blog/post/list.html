@@ -5,7 +5,15 @@
 
 {% block content %}
   <h1>my blog</h1>
+  {% if tag %}
+    <h2>Post tags: "{{tag.name}}"</h2>
+  {% endif %}
   {% for post in posts %}
+      <p class="tags">Tags:
+        {% for tag in post.tags.all %}
+          <a href="{% url "blog:post_list_by_tag" tag.slug %}"> {{ tag.name }}</a>
+        {% endfor %}
+      </p>
       <h2>
           <a href="{{ post.get_absolute_url }}">
             {{ post.title }}
